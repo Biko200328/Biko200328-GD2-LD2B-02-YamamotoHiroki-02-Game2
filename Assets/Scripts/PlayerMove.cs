@@ -11,9 +11,13 @@ public class PlayerMove : MonoBehaviour
 	[SerializeField] private float width;
 
 	[SerializeField] private float addSpeed;
-	[SerializeField] public int lv;
+	public int lv;
 
 	[SerializeField] private bool isFever;
+
+	public bool isRise;
+	[SerializeField] private float riseSpeed;
+	[SerializeField] private float addRiseSpeed;
 
 	// Start is called before the first frame update
 	void Start()
@@ -26,6 +30,22 @@ public class PlayerMove : MonoBehaviour
 	{
 		Move();
 		Fall();
+
+		if(isRise)
+		{
+			var pos = transform.position;
+
+			riseSpeed += addRiseSpeed;
+
+			if(riseSpeed >= fallSpeed * 2)
+			{
+				riseSpeed = fallSpeed * 2;
+			}
+		}
+		else
+		{
+			riseSpeed = 0;
+		}
 	}
 
 	//Ž©“®‚Å—Ž‚¿‚é
@@ -33,7 +53,7 @@ public class PlayerMove : MonoBehaviour
 	{
 		var pos = transform.position;
 
-		pos.y -= fallSpeed + addSpeed;
+		pos.y += -fallSpeed + riseSpeed;
 
 		transform.position = pos;
 	}
