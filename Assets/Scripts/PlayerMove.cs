@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
@@ -9,12 +10,15 @@ public class PlayerMove : MonoBehaviour
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float width;
 
-	[SerializeField] private bool isLvUp;
+	[SerializeField] private float addSpeed;
+	[SerializeField] public int lv;
+
+	[SerializeField] private bool isFever;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		isLvUp = false;
+		isFever = false;
 	}
 
 	// Update is called once per frame
@@ -29,7 +33,7 @@ public class PlayerMove : MonoBehaviour
 	{
 		var pos = transform.position;
 
-		pos.y -= fallSpeed;
+		pos.y -= fallSpeed + addSpeed;
 
 		transform.position = pos;
 	}
@@ -62,6 +66,16 @@ public class PlayerMove : MonoBehaviour
 
 	public void LvUp()
 	{
-		
+		if(lv < 5)
+		{
+			lv++;
+			fallSpeed += addSpeed;
+		}
+
+		//lv5以上でフィーバー
+		if(lv >= 4)
+		{
+			isFever = true;
+		}
 	}
 }
