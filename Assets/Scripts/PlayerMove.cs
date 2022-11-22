@@ -6,7 +6,8 @@ using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
-	[SerializeField] private float fallSpeed;
+	public float fallSpeed;
+	public float saveFallSpeed = 0.01f;
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float width;
 
@@ -16,7 +17,6 @@ public class PlayerMove : MonoBehaviour
 	[SerializeField] private bool isFever;
 
 	public bool isRise;
-	[SerializeField] private float riseSpeed;
 	[SerializeField] private float addRiseSpeed;
 
 	// Start is called before the first frame update
@@ -31,20 +31,21 @@ public class PlayerMove : MonoBehaviour
 		Move();
 		Fall();
 
-		if(isRise)
+		if(isRise == true)
 		{
-			var pos = transform.position;
-
-			riseSpeed += addRiseSpeed;
-
-			if(riseSpeed >= fallSpeed * 2)
+			fallSpeed += addRiseSpeed;
+			if(fallSpeed >= saveFallSpeed)
 			{
-				riseSpeed = fallSpeed * 2;
+				fallSpeed = saveFallSpeed;
 			}
 		}
 		else
 		{
-			riseSpeed = 0;
+			fallSpeed -= addRiseSpeed;
+			if (fallSpeed <= -saveFallSpeed)
+			{
+				fallSpeed = -saveFallSpeed;
+			}
 		}
 	}
 
@@ -53,7 +54,7 @@ public class PlayerMove : MonoBehaviour
 	{
 		var pos = transform.position;
 
-		pos.y += -fallSpeed + riseSpeed;
+		pos.y += fallSpeed;
 
 		transform.position = pos;
 	}
@@ -89,7 +90,7 @@ public class PlayerMove : MonoBehaviour
 		if(lv < 5)
 		{
 			lv++;
-			fallSpeed += addSpeed;
+			saveFallSpeed += addSpeed;
 		}
 
 		//lv5以上でフィーバー

@@ -1933,13 +1933,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 0.01
+  saveFallSpeed: 0.01
   moveSpeed: 0.1
   width: 4
   addSpeed: 0.01
   lv: 0
   isFever: 0
   isRise: 0
-  riseSpeed: 0
   addRiseSpeed: 0.0005
 --- !u!212 &2038381518
 SpriteRenderer:
