@@ -16,13 +16,16 @@ public class PlayerMove : MonoBehaviour
 
 	[SerializeField] private bool isFever;
 
-	public bool isRise;
 	[SerializeField] private float addRiseSpeed;
+
+	GameManager gameManager;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		isFever = false;
+		GameObject managerObj = GameObject.Find("GameManager");
+		gameManager = managerObj.GetComponent<GameManager>();
 	}
 
 	// Update is called once per frame
@@ -30,8 +33,9 @@ public class PlayerMove : MonoBehaviour
 	{
 		Move();
 		Fall();
+		//Loop();
 
-		if(isRise == true)
+		if (gameManager.isRise == true)
 		{
 			fallSpeed += addRiseSpeed;
 			if(fallSpeed >= saveFallSpeed)
@@ -58,6 +62,22 @@ public class PlayerMove : MonoBehaviour
 
 		transform.position = pos;
 	}
+
+	//public void Loop()
+	//{
+	//	var pos = transform.position;
+
+	//	if(transform.position.y <= -loopzone)
+	//	{
+	//		pos.y = 0;
+	//	}
+	//	if(transform.position.y >= 0)
+	//	{
+	//		pos.y = -loopzone;
+	//	}
+
+	//	transform.position = pos;
+	//}
 
 	//‰¡ˆÚ“®
 	public void Move()

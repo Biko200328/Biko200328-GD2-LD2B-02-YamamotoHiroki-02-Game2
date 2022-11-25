@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
 
 	PlayerMove playerMove;
 
+	public float stageSize = 36.0f;
+
+	public bool isRise = false;
+
 	// Start is called before the first frame update
 	void Start()
 	{

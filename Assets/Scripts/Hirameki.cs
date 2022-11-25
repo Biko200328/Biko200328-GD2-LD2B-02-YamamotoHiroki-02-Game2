@@ -21,9 +21,13 @@ public class Hirameki : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		//当たった時にプレイヤーのレベルを上げる
-		playerMove.LvUp();
+		if(collision.gameObject.tag == "Player")
+		{
+			//当たった時にプレイヤーのレベルを上げる
+			playerMove.LvUp();
+		}
+		
 		//自身を消す
-		Destroy(this.gameObject);
+		//Destroy(this.gameObject);
 	}
 }
