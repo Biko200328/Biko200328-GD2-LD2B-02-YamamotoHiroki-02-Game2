@@ -27,9 +27,13 @@ public class Clock : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Player")
 		{
+			//ƒtƒ‰ƒO”½“]
+			//‰º‚ª‚Á‚Ä‚¢‚éó‘Ô‚È‚çã‚°‚é‚æ‚¤‚É
+			//ã‚ª‚Á‚Ä‚¢‚éó‘Ô‚È‚ç‰º‚°‚é‚æ‚¤‚É
 			gameManager.isRise = !gameManager.isRise;
 		}
 
-		//Destroy(this.gameObject);
+		//©g‚ğÁ–Å‚³‚¹‚é
+		Destroy(this.gameObject);
 	}
 }

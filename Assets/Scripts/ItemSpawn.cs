@@ -6,6 +6,7 @@ using UnityEngine;
 public class ItemSpawn : MonoBehaviour
 {
 	[SerializeField] GameObject hirameki;
+	[SerializeField] GameObject clock;
 
 	[SerializeField] private float spawnTimer = 3.0f;
 	private float resetTime;
@@ -14,6 +15,8 @@ public class ItemSpawn : MonoBehaviour
 
 	GameManager gameManager;
 	PlayerMove playerMove;
+
+	[SerializeField] private int randomNum = 5;
 
 	// Start is called before the first frame update
 	void Start()
@@ -40,15 +43,28 @@ public class ItemSpawn : MonoBehaviour
 		{
 			var pos = Vector3.zero;
 			pos.x = Random.Range(-3.6f, 3.6f);
+
+			//下がってるときは画面の下から
 			if(gameManager.isRise == false)
 			{
 				pos.y = playerMove.transform.position.y - 7.0f;
 			}
+			//上がっているときには画面の上から
 			else
 			{
 				pos.y = playerMove.transform.position.y + 7.0f;
 			}
-			Instantiate(hirameki, pos, Quaternion.identity);
+
+			//1/randomNumの確率で生成されるアイテムが時計に
+			int a = Random.Range(1, randomNum);
+			if (a == 1)
+			{
+				Instantiate(clock, pos, Quaternion.identity);
+			}
+			else
+			{
+				Instantiate(hirameki, pos, Quaternion.identity);
+			}
 			isCreate = false;
 			spawnTimer = resetTime;
 		}
