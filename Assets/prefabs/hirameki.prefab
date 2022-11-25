@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5704189936842251498}
   m_Layer: 0
   m_Name: hirameki
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

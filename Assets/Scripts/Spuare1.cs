@@ -25,7 +25,7 @@ public class Spuare1 : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(gameManager.isRise == false)
+		if(gameManager.isRise == false && collision.gameObject.tag == "Item")
 		{
 			var pos = collision.gameObject.transform.position;
 

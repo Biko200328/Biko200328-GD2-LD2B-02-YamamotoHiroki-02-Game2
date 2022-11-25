@@ -24,7 +24,7 @@ public class Square2 : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (gameManager.isRise == true)
+		if (gameManager.isRise == true && collision.gameObject.tag == "Item")
 		{
 			var pos = collision.gameObject.transform.position;
 

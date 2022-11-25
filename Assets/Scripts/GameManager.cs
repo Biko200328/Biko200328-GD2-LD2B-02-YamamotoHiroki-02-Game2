@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
 	public bool isRise = false;
 
+	public bool isClear = false;
+
 	// Start is called before the first frame update
 	void Start()
 	{
