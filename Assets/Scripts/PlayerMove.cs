@@ -8,17 +8,21 @@ public class PlayerMove : MonoBehaviour
 {
 	public float fallSpeed;
 	public float saveFallSpeed = 0.01f;
+	float initialValue = 0;
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float width;
 
 	[SerializeField] private float addSpeed;
 	public int lv;
 
-	[SerializeField] private bool isFever;
+	public bool isFever;
 
 	[SerializeField] private float addRiseSpeed;
 
 	GameManager gameManager;
+
+	float feverCount = 0;
+	[SerializeField] float feverTime = 3f;
 
 	// Start is called before the first frame update
 	void Start()
@@ -26,6 +30,7 @@ public class PlayerMove : MonoBehaviour
 		isFever = false;
 		GameObject managerObj = GameObject.Find("GameManager");
 		gameManager = managerObj.GetComponent<GameManager>();
+		initialValue = saveFallSpeed;
 	}
 
 	// Update is called once per frame
@@ -34,6 +39,21 @@ public class PlayerMove : MonoBehaviour
 		Move();
 		Fall();
 		//Loop();
+
+		if(isFever == true)
+		{
+			feverCount += Time.deltaTime;
+			if(feverCount >= feverTime)
+			{
+				//フィーバー終了
+				isFever = false;
+				feverCount = 0;
+				//lvを0に
+				lv = 0;
+				//スピードを初期値に
+				saveFallSpeed = initialValue;
+			}
+		}
 
 		if (gameManager.isRise == true)
 		{
@@ -114,7 +134,7 @@ public class PlayerMove : MonoBehaviour
 		}
 
 		//lv5以上でフィーバー
-		if(lv >= 4)
+		if(lv >= 5)
 		{
 			isFever = true;
 		}

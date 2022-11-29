@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
 
 	public bool isClear = false;
 
+	private float timer = 0;
+	private bool isF;
+	public float flashingTime = 1;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -42,6 +46,13 @@ public class GameManager : MonoBehaviour
 	{
 		switch (playerMove.lv)
 		{
+			case 0:
+				lv1.gameObject.SetActive(false);
+				lv2.gameObject.SetActive(false);
+				lv3.gameObject.SetActive(false);
+				lv4.gameObject.SetActive(false);
+				lv5.gameObject.SetActive(false);
+				break;
 			case 1:
 				lv1.gameObject.SetActive(true);
 				break;
@@ -57,6 +68,33 @@ public class GameManager : MonoBehaviour
 			case 5:
 				lv5.gameObject.SetActive(true);
 				break;
+		}
+
+		if (playerMove.isFever)
+		{
+			timer += Time.deltaTime;
+			if (timer >= flashingTime)
+			{
+				isF = !isF;
+				timer = 0;
+			}
+
+			if(isF)
+			{
+				lv1.gameObject.SetActive(true);
+				lv2.gameObject.SetActive(true);
+				lv3.gameObject.SetActive(true);
+				lv4.gameObject.SetActive(true);
+				lv5.gameObject.SetActive(true);
+			}
+			else
+			{
+				lv1.gameObject.SetActive(false);
+				lv2.gameObject.SetActive(false);
+				lv3.gameObject.SetActive(false);
+				lv4.gameObject.SetActive(false);
+				lv5.gameObject.SetActive(false);
+			}
 		}
 	}
 }
