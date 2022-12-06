@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -16,6 +18,10 @@ public class PlayerMove : MonoBehaviour
 	public int lv;
 
 	public bool isFever;
+	bool isFever2;
+	public bool isFeverBoost;
+	private bool isBoostTimerDown;
+	private float boostTimer = 0f;
 
 	[SerializeField] private float addRiseSpeed;
 
@@ -23,11 +29,14 @@ public class PlayerMove : MonoBehaviour
 
 	float feverCount = 0;
 	[SerializeField] float feverTime = 3f;
+	
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		isFever = false;
+		isFeverBoost = false;
+		isBoostTimerDown = false;
 		GameObject managerObj = GameObject.Find("GameManager");
 		gameManager = managerObj.GetComponent<GameManager>();
 		initialValue = saveFallSpeed;
@@ -39,8 +48,10 @@ public class PlayerMove : MonoBehaviour
 		Move();
 		Fall();
 		//Loop();
+		FeverBoost();
+		isFever2 = isFever;
 
-		if(isFever == true)
+		if (isFever == true)
 		{
 			feverCount += Time.deltaTime;
 			if(feverCount >= feverTime)
@@ -134,9 +145,44 @@ public class PlayerMove : MonoBehaviour
 		}
 
 		//lv5以上でフィーバー
-		if(lv >= 5)
+		if(isFever == false && lv >= 5)
 		{
 			isFever = true;
+		}
+
+		if(isFever == true && isFever2 == true && lv == 5)
+		{
+			isFeverBoost = true;
+		}
+	}
+
+	public void FeverBoost()
+	{
+		if (isFeverBoost == true)
+		{
+			boostTimer += Time.deltaTime;
+			saveFallSpeed += addRiseSpeed;
+			if(boostTimer >= 1f)
+			{
+				isFeverBoost = false;
+			}
+		}
+		else
+		{
+			if(boostTimer >= 1f)
+			{
+				isBoostTimerDown = true;
+			}
+			if(isBoostTimerDown == true)
+			{
+				boostTimer -= Time.deltaTime;
+				saveFallSpeed -= addRiseSpeed;
+				if(boostTimer <= 0)
+				{
+					isBoostTimerDown = false;
+					boostTimer = 0;
+				}
+			}
 		}
 	}
 }

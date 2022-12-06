@@ -25,6 +25,7 @@ public class Hirameki : MonoBehaviour
 		{
 			//当たった時にプレイヤーのレベルを上げる
 			playerMove.LvUp();
+			
 		}
 
 		//自身を消す
