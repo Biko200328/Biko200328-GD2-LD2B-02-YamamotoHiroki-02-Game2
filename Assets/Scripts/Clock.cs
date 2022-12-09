@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Clock : MonoBehaviour
 {
 	PlayerMove playerMove;
 	GameManager gameManager;
+
+	[SerializeField] GameObject Graph0;
+	[SerializeField] GameObject Graph1;
 
 	// Start is called before the first frame update
 	void Start()
@@ -20,7 +24,16 @@ public class Clock : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
+		if(playerMove.isFever)
+		{
+			Graph0.SetActive(false);
+			Graph1.SetActive(true);
+		}
+		else
+		{
+			Graph0.SetActive(true);
+			Graph1.SetActive(false);
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
