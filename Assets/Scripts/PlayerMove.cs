@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
@@ -29,6 +30,13 @@ public class PlayerMove : MonoBehaviour
 
 	float feverCount = 0;
 	[SerializeField] float feverTime = 3f;
+
+	[SerializeField] private GameObject Graph0;
+	[SerializeField] private GameObject Graph1;
+	[SerializeField] private GameObject Graph2;
+	[SerializeField] private GameObject Graph3;
+	[SerializeField] private GameObject Graph4;
+	[SerializeField] private GameObject Graph5;
 	
 
 	// Start is called before the first frame update
@@ -45,10 +53,19 @@ public class PlayerMove : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (gameManager.isRise == true)
+		{
+			transform.Rotate(new Vector3(0, 0, 2));
+		}
+		else
+		{
+			transform.Rotate(new Vector3(0, 0, -2));
+		}
 		Move();
 		Fall();
 		//Loop();
 		FeverBoost();
+		GraphChange();
 		isFever2 = isFever;
 
 		if (isFever == true)
@@ -183,6 +200,61 @@ public class PlayerMove : MonoBehaviour
 					boostTimer = 0;
 				}
 			}
+		}
+	}
+
+	private void GraphChange()
+	{
+		switch (lv)
+		{
+			case 0:
+				Graph0.SetActive(true);
+				Graph1.SetActive(false);
+				Graph2.SetActive(false);
+				Graph3.SetActive(false);
+				Graph4.SetActive(false);
+				Graph5.SetActive(false);
+				break;
+			case 1:
+				Graph0.SetActive(false);
+				Graph1.SetActive(true);
+				Graph2.SetActive(false);
+				Graph3.SetActive(false);
+				Graph4.SetActive(false);
+				Graph5.SetActive(false);
+				break;
+			case 2:
+				Graph0.SetActive(false);
+				Graph1.SetActive(false);
+				Graph2.SetActive(true);
+				Graph3.SetActive(false);
+				Graph4.SetActive(false);
+				Graph5.SetActive(false);
+				break;
+			case 3:
+				Graph0.SetActive(false);
+				Graph1.SetActive(false);
+				Graph2.SetActive(false);
+				Graph3.SetActive(true);
+				Graph4.SetActive(false);
+				Graph5.SetActive(false);
+				break;
+			case 4:
+				Graph0.SetActive(false);
+				Graph1.SetActive(false);
+				Graph2.SetActive(false);
+				Graph3.SetActive(false);
+				Graph4.SetActive(true);
+				Graph5.SetActive(false);
+				break;
+			case 5:
+				Graph0.SetActive(false);
+				Graph1.SetActive(false);
+				Graph2.SetActive(false);
+				Graph3.SetActive(false);
+				Graph4.SetActive(false);
+				Graph5.SetActive(true);
+				break;
 		}
 	}
 }
