@@ -7,9 +7,6 @@ public class Goal : MonoBehaviour
 
 	GameManager gameManager;
 
-	public GameObject Clear;
-	public GameObject Failure;
-
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -27,14 +24,7 @@ public class Goal : MonoBehaviour
 	{
 		if(collision.gameObject.name == "Player")
 		{
-			if(gameManager.isClear == true)
-			{
-				Clear.SetActive(true);
-			}
-			else
-			{
-				Failure.SetActive(true);
-			}
+			gameManager.GameEnd(gameManager.isClear);
 		}
 	}
 }

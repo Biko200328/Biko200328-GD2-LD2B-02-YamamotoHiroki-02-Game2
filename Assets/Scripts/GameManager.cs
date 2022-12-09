@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,10 +18,18 @@ public class GameManager : MonoBehaviour
 	public bool isRise = false;
 
 	public bool isClear = false;
+	private bool isGameOver = false;
+	private bool isGameEnd = false;
 
 	private float timer = 0;
 	private bool isF;
 	public float flashingTime = 1;
+
+	[SerializeField] private float gameOverTime = 120.0f;
+
+	public GameObject Clear;
+	public GameObject Failure;
+	public Text text;
 
 	// Start is called before the first frame update
 	void Start()
@@ -43,6 +52,21 @@ public class GameManager : MonoBehaviour
 
 	// Update is called once per frame
 	void Update()
+	{
+		gameOverTime -= Time.deltaTime;
+		text.text = "" + gameOverTime.ToString("F");
+
+		if(gameOverTime <= 0)
+		{
+			isGameOver = true;
+		}
+
+		Gauge();
+
+		GameEnd();
+	}
+
+	private void Gauge()
 	{
 		switch (playerMove.lv)
 		{
@@ -79,7 +103,7 @@ public class GameManager : MonoBehaviour
 				timer = 0;
 			}
 
-			if(isF)
+			if (isF)
 			{
 				lv1.gameObject.SetActive(true);
 				lv2.gameObject.SetActive(true);
@@ -95,6 +119,29 @@ public class GameManager : MonoBehaviour
 				lv4.gameObject.SetActive(false);
 				lv5.gameObject.SetActive(false);
 			}
+		}
+	}
+
+	public void GameEnd(bool isClear)
+	{
+		if(isClear)
+		{
+			Clear.SetActive(true);
+			isGameEnd = true;
+		}
+		else
+		{
+			Failure.SetActive(true);
+			isGameEnd = true;
+		}
+	}
+
+	public void GameEnd()
+	{
+		if(isGameOver)
+		{
+			Failure.SetActive(true);
+			isGameEnd = true;
 		}
 	}
 }

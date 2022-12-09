@@ -40,10 +40,15 @@ public class Clock : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Player")
 		{
+			//フィーバー中なら加速するように
+			if(playerMove.isFever)
+			{
+				playerMove.LvUp();
+			}
 			//フラグ反転
 			//下がっている状態なら上げるように
 			//上がっている状態なら下げるように
-			gameManager.isRise = !gameManager.isRise;
+			else gameManager.isRise = !gameManager.isRise;
 		}
 
 		//自身を消滅させる

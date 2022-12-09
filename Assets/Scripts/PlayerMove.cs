@@ -75,12 +75,32 @@ public class PlayerMove : MonoBehaviour
 			{
 				//フィーバー終了
 				isFever = false;
+				//タイマーリセット
 				feverCount = 0;
 				//lvを0に
 				lv = 0;
 				//スピードを初期値に
 				saveFallSpeed = initialValue;
 			}
+		}
+
+		switch (lv)
+		{
+			case 0:
+				saveFallSpeed = initialValue;
+				break;
+			case 1:
+				saveFallSpeed = initialValue + addSpeed;
+				break;
+			case 2:
+				saveFallSpeed = initialValue + addSpeed * 2;
+				break;
+			case 3:
+				saveFallSpeed = initialValue + addSpeed * 3;
+				break;
+			case 4:
+				saveFallSpeed = initialValue + addSpeed * 4;
+				break;
 		}
 
 		if (gameManager.isRise == true)
@@ -155,7 +175,11 @@ public class PlayerMove : MonoBehaviour
 
 	public void LvUp()
 	{
-		if(lv < 5)
+		if(lv < 4)
+		{
+			lv++;
+		}
+		else if(lv == 4)
 		{
 			lv++;
 			saveFallSpeed += addSpeed;
@@ -177,26 +201,38 @@ public class PlayerMove : MonoBehaviour
 	{
 		if (isFeverBoost == true)
 		{
+			// フィーバー開始から時間をはかる
 			boostTimer += Time.deltaTime;
+			// タイマーが一以下の場合はスピードを足し続ける(加速)
 			saveFallSpeed += addRiseSpeed;
-			if(boostTimer >= 1f)
+			if (boostTimer >= 1.0f)
 			{
+				boostTimer = 1.0f;
+				//一超えた場合加速を切る
 				isFeverBoost = false;
 			}
 		}
 		else
 		{
-			if(boostTimer >= 1f)
+			// 加速が切ってある場合
+			// かつ、時間が一以上残っている(加速しきった後)状態の時
+			if (boostTimer >= 1.0f)
 			{
+				// 減速させるフラグ
 				isBoostTimerDown = true;
 			}
-			if(isBoostTimerDown == true)
+			if (isBoostTimerDown == true)
 			{
+				// 減速する時間をはかる
 				boostTimer -= Time.deltaTime;
+				// 0以下になるまで速度を引き続ける(減速)
 				saveFallSpeed -= addRiseSpeed;
-				if(boostTimer <= 0)
+				// 0以下になった時
+				if (boostTimer <= 0)
 				{
+					// 減速させるフラグを切る
 					isBoostTimerDown = false;
+					// タイマーのリセット
 					boostTimer = 0;
 				}
 			}

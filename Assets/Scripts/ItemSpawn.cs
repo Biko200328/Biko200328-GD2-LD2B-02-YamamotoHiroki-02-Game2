@@ -18,6 +18,8 @@ public class ItemSpawn : MonoBehaviour
 
 	[SerializeField] private int randomNum = 5;
 
+	int createCount = 0; 
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -55,16 +57,25 @@ public class ItemSpawn : MonoBehaviour
 				pos.y = playerMove.transform.position.y + 7.0f;
 			}
 
-			//1/randomNumの確率で生成されるアイテムが時計に
-			int a = Random.Range(1, randomNum);
-			if (a == 1)
+			// 1/randomNumの確率で生成されるアイテムが時計に
+			// アイテムを十個以上生成したときにはじめて地形が出てくるように設定
+			if(createCount >= 10)
 			{
-				Instantiate(clock, pos, Quaternion.identity);
+				int a = Random.Range(1, randomNum);
+				if (a == 1)
+				{
+					Instantiate(clock, pos, Quaternion.identity);
+				}
+				else
+				{
+					Instantiate(hirameki, pos, Quaternion.identity);
+				}
 			}
 			else
 			{
 				Instantiate(hirameki, pos, Quaternion.identity);
 			}
+			createCount++;
 			isCreate = false;
 			spawnTimer = resetTime;
 		}
