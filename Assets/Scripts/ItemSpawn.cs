@@ -58,8 +58,8 @@ public class ItemSpawn : MonoBehaviour
 			}
 
 			// 1/randomNumの確率で生成されるアイテムが時計に
-			// アイテムを十個以上生成したときにはじめて地形が出てくるように設定
-			if(createCount >= 10)
+			// アイテムを十個以上生成したときにはじめて時計が出てくるように設定
+			if(createCount >= 1)
 			{
 				int a = Random.Range(1, randomNum);
 				if (a == 1)

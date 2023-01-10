@@ -1,11 +1,7 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -37,6 +33,8 @@ public class PlayerMove : MonoBehaviour
 	[SerializeField] private GameObject Graph3;
 	[SerializeField] private GameObject Graph4;
 	[SerializeField] private GameObject Graph5;
+
+	[SerializeField] Text text;
 	
 
 	// Start is called before the first frame update
@@ -119,6 +117,8 @@ public class PlayerMove : MonoBehaviour
 				fallSpeed = -saveFallSpeed;
 			}
 		}
+
+		text.text = "" + transform.position.y.ToString("F");
 	}
 
 	//Ž©“®‚Å—Ž‚¿‚é

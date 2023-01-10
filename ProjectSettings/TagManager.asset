@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
+  - Fade
+  - wave1
+  - wave2
   layers:
   - Default
   - TransparentFX

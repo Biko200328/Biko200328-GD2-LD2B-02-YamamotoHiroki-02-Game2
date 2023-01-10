@@ -31,6 +31,15 @@ public class GameManager : MonoBehaviour
 	public GameObject Failure;
 	public Text text;
 
+	float endtTimer = 0;
+
+	SceneController sceneController;
+
+	[SerializeField] AudioSource boostSE;
+	[SerializeField] AudioSource upSE;
+	[SerializeField] AudioSource IdeaSE;
+
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -48,6 +57,9 @@ public class GameManager : MonoBehaviour
 
 		GameObject player = GameObject.Find("Player");
 		playerMove = player.GetComponent<PlayerMove>();
+
+		GameObject camera = GameObject.Find("Main Camera");
+		sceneController = camera.GetComponent<SceneController>();
 	}
 
 	// Update is called once per frame
@@ -64,6 +76,15 @@ public class GameManager : MonoBehaviour
 		Gauge();
 
 		GameEnd();
+
+		if(isGameEnd == true)
+		{
+			endtTimer += Time.deltaTime;
+			if(endtTimer >= 5)
+			{
+				sceneController.sceneChange("TitleScene");
+			}
+		}
 	}
 
 	private void Gauge()
@@ -124,24 +145,42 @@ public class GameManager : MonoBehaviour
 
 	public void GameEnd(bool isClear)
 	{
-		if(isClear)
+		if(isGameEnd == false)
 		{
-			Clear.SetActive(true);
-			isGameEnd = true;
+			if (isClear)
+			{
+				Clear.SetActive(true);
+				isGameEnd = true;
+			}
+			else
+			{
+				Failure.SetActive(true);
+				isGameEnd = true;
+			}
 		}
-		else
+	}
+
+	public void GameEnd()
+	{
+		if(isGameOver== true && isGameEnd == false)
 		{
 			Failure.SetActive(true);
 			isGameEnd = true;
 		}
 	}
 
-	public void GameEnd()
+	public void BoostSound()
 	{
-		if(isGameOver)
-		{
-			Failure.SetActive(true);
-			isGameEnd = true;
-		}
+		boostSE.Play();
+	}
+
+	public void UpSound()
+	{
+		upSE.Play();
+	}
+
+	public void IdeaSound()
+	{
+		IdeaSE.Play();
 	}
 }

@@ -30,6 +30,11 @@ public class PlayerMoveTitle : MonoBehaviour
 
 		pos.y += fallSpeed;
 
+		if(pos.y <= -5.1f)
+		{
+			pos.y = 5.0f;
+		}
+
 		transform.position = pos;
 	}
 

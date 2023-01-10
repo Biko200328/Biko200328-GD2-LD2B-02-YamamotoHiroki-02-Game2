@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Idea : MonoBehaviour
 {
-	public GameObject text;
-
 	GameManager gameManager;
+
+	public GameObject a;
 
 	// Start is called before the first frame update
 	void Start()
@@ -25,8 +25,9 @@ public class Idea : MonoBehaviour
 	{
 		if(collision.gameObject.name == "Player")
 		{
-			text.SetActive(true);
+			gameManager.IdeaSound();
 			gameManager.isClear = true;
+			a.SetActive(true);
 			Destroy(this.gameObject);
 		}
 	}
